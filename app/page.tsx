@@ -150,21 +150,50 @@ export default function Home() {
         </section>
       )}
 
-<section style={{ marginTop: 60 }}>
-  <h2 style={{ marginBottom: 20 }}>Mass Around the Diocese</h2>
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+    gap: 20,
+  }}
+>
+  {/* Cathedral (landscape) */}
+  <Image
+    src="/1-Mass-cathedral.jpg"
+    alt="Mass cathedral"
+    width={1500}
+    height={1000}
+    style={{ width: "100%", height: "auto", borderRadius: 16, display: "block" }}
+  />
 
-  <div
-    style={{
-      display: "grid",
-      gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-      gap: 20,
-    }}
-  >
-    <Image src="/1-Mass-cathedral.jpg" alt="1-Mass-cathedral" width={500} height={350} style={{ borderRadius: 16 }} />
-    <Image src="/2-Mass-Roasary-beads.jpg" alt="2-Mass-Roasary-beads" width={500} height={350} style={{ borderRadius: 16 }} />
-    <Image src="/B-Catholic-Confession-Jesus.jpg" alt="B-Catholic-Confession-Jesus" width={500} height={350} style={{ borderRadius: 16 }} />
-  </div>
-</section>
+  {/* Rosary (landscape) */}
+  <Image
+    src="/2-Mass-Roasary-beads.jpg"
+    alt="Rosary beads"
+    width={1500}
+    height={1000}
+    style={{ width: "100%", height: "auto", borderRadius: 16, display: "block" }}
+  />
+
+  {/* Saint Michael (portrait) */}
+  <Image
+    src="/A-Catholic-Confession-saint-Michael-Patch.jpg"
+    alt="Saint Michael"
+    width={1000}
+    height={1500}
+    style={{ width: "100%", height: "auto", borderRadius: 16, display: "block" }}
+  />
+
+  {/* Jesus (portrait) */}
+  <Image
+    src="/B-Catholic-Confession-Jesus.jpg"
+    alt="Jesus"
+    width={1000}
+    height={1500}
+    style={{ width: "100%", height: "auto", borderRadius: 16, display: "block" }}
+  />
+</div>
+
 
     </main>
   );
