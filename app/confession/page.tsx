@@ -142,18 +142,35 @@ export default function ConfessionPage() {
 <section style={{ marginTop: 60 }}>
   <h2 style={{ marginBottom: 20 }}>Sacrament of Reconciliation</h2>
 
-  <div
-    style={{
-      display: "grid",
-      gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-      gap: 20,
-    }}
-  >
-    <Image src="/A-Catholic-Confession-saint-Michael-Patch.jpg" alt="A-Catholic-Confession-saint-Michael-Patch" width={500} height={350} style={{ borderRadius: 16 }} />
-    <Image src="/B-Catholic-Confession-Jesus.jpg" alt="B-Catholic-Confession-Jesus" width={500} height={350} style={{ borderRadius: 16 }} />
-    <Image src="/2-Mass-Roasary-beads" alt="2-Mass-Roasary-beads" width={500} height={350} style={{ borderRadius: 16 }} />
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+    gap: 20,
+    marginTop: 20,
+  }}
+>
+  <div style={{ borderRadius: 16, overflow: "hidden" }}>
+    <Image
+      src="/A-Catholic-Confession-saint-Michael-Patch.jpg"
+      alt="Saint Michael"
+      width={1200}
+      height={1600}   // (portrait ratio)
+      style={{ width: "100%", height: "auto", display: "block" }}
+    />
   </div>
-</section>
+
+  <div style={{ borderRadius: 16, overflow: "hidden" }}>
+    <Image
+      src="/B-Catholic-Confession-Jesus.jpg"
+      alt="Jesus"
+      width={1200}
+      height={800}    // (landscape ratio)
+      style={{ width: "100%", height: "auto", display: "block" }}
+    />
+  </div>
+</div>
+
 
     </main>
   );
