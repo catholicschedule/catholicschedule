@@ -75,10 +75,10 @@ export default function Home() {
           <h1>Catholic Schedule</h1>
           <p>Find local Mass and Confession times</p>
         </div>
-        <div className="navlinks">
-          <a href="/confession">Confession</a>
-          <a href="/admin">Admin</a>
-        </div>
+<div className="navlinks">
+  <a href="/confession">Confession</a>
+</div>
+
       </nav>
 
       <section className="hero">
