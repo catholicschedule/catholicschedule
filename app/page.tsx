@@ -175,24 +175,25 @@ export default function Home() {
     style={{ width: "100%", height: "auto", borderRadius: 16, display: "block" }}
   />
 
-  {/* Saint Michael (portrait) */}
-  <Image
-    src="/A-Catholic-Confession-saint-Michael-Patch.jpg"
-    alt="Saint Michael"
-    width={1000}
-    height={1500}
-    style={{ width: "100%", height: "auto", borderRadius: 16, display: "block" }}
-  />
+{/* Saint Michael (portrait) */}
+<Image
+  src="/A-Catholic-Confession-saint-Michael-Patch.jpg"
+  alt="Saint Michael Protect Us"
+  width={1000}
+  height={1500}
+  style={{ width: "100%", height: "auto", borderRadius: 16, display: "block" }}
+/>
 
-  {/* Jesus (portrait) */}
-  <Image
-    src="/B-Catholic-Confession-Jesus.jpg"
-    alt="Jesus"
-    width={1000}
-    height={1500}
-    style={{ width: "100%", height: "auto", borderRadius: 16, display: "block" }}
-  />
-</div>
+
+{/* Jesus (portrait) */}
+<Image
+  src="/B-Catholic-Confession-Jesus.jpg"
+  alt="Jesus in Cathedral"
+  width={1000}
+  height={1500}
+  style={{ width: "100%", height: "auto", borderRadius: 16, display: "block" }}
+/>
+
 
 
     </main>
@@ -255,6 +256,7 @@ function MassTimes({ churchId }: { churchId: string }) {
   );
 }
 
+
 function formatTime(t: string) {
   const [hhS, mmS] = t.split(":");
   const hh = parseInt(hhS, 10);
@@ -264,3 +266,42 @@ function formatTime(t: string) {
   return `${hour12}:${String(mm).padStart(2, "0")} ${ampm}`;
 }
 
+function LetterboxImage({ src, alt }: { src: string; alt: string }) {
+  return (
+    <div
+      style={{
+        background: "rgba(255,255,255,0.06)",
+        border: "1px solid rgba(255,255,255,0.10)",
+        borderRadius: 16,
+        overflow: "hidden",
+        padding: 10,
+      }}
+    >
+      <div
+        style={{
+          width: "100%",
+          height: 200,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "rgba(0,0,0,0.25)",
+          borderRadius: 12,
+          overflow: "hidden",
+        }}
+      >
+        <Image
+          src={src}
+          alt={alt}
+          width={1400}
+          height={1400}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "contain",
+            display: "block",
+          }}
+        />
+      </div>
+    </div>
+  );
+}
