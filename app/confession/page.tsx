@@ -138,6 +138,23 @@ export default function ConfessionPage() {
           ))}
         </section>
       )}
+
+<section style={{ marginTop: 60 }}>
+  <h2 style={{ marginBottom: 20 }}>Sacrament of Reconciliation</h2>
+
+  <div
+    style={{
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+      gap: 20,
+    }}
+  >
+    <Image src="/A-Catholic-Confession-saint-Michael-Patch.jpg" alt="A-Catholic-Confession-saint-Michael-Patch" width={500} height={350} style={{ borderRadius: 16 }} />
+    <Image src="/B-Catholic-Confession-Jesus.jpg" alt="B-Catholic-Confession-Jesus" width={500} height={350} style={{ borderRadius: 16 }} />
+    <Image src="/2-Mass-Roasary-beads" alt="2-Mass-Roasary-beads" width={500} height={350} style={{ borderRadius: 16 }} />
+  </div>
+</section>
+
     </main>
   );
 }
@@ -210,18 +227,3 @@ function formatTime(t: string) {
   return `${hour12}:${String(mm).padStart(2, "0")} ${ampm}`;
 }
 
-<section style={{ marginTop: 60 }}>
-  <h2 style={{ marginBottom: 20 }}>Sacrament of Reconciliation</h2>
-
-  <div
-    style={{
-      display: "grid",
-      gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-      gap: 20,
-    }}
-  >
-    <Image src="/A-Catholic-Confession-saint-Michael-Patch.jpg" alt="A-Catholic-Confession-saint-Michael-Patch" width={500} height={350} style={{ borderRadius: 16 }} />
-    <Image src="/B-Catholic-Confession-Jesus.jpg" alt="B-Catholic-Confession-Jesus" width={500} height={350} style={{ borderRadius: 16 }} />
-    <Image src="/2-Mass-Roasary-beads" alt="2-Mass-Roasary-beads" width={500} height={350} style={{ borderRadius: 16 }} />
-  </div>
-</section>
