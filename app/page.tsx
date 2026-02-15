@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { supabase } from "../lib/supabaseClient";
+import Image from "next/image";
 
 type Church = {
   id: string;
@@ -82,7 +83,7 @@ export default function Home() {
 
       <section className="hero">
         <h2>Search by ZIP code</h2>
-        <p>We’ll show nearby parishes and their schedules. Vigil Masses display first.</p>
+        <p>We’ll show nearby parishes and their schedules. Vigil Masses display first</p>
 
         <form className="controls" onSubmit={onSearch}>
           <input
@@ -216,3 +217,19 @@ function formatTime(t: string) {
   const hour12 = ((hh + 11) % 12) + 1;
   return `${hour12}:${String(mm).padStart(2, "0")} ${ampm}`;
 }
+
+<section style={{ marginTop: 60 }}>
+  <h2 style={{ marginBottom: 20 }}>Mass Around the Diocese</h2>
+
+  <div
+    style={{
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+      gap: 20,
+    }}
+  >
+    <Image src="/mass1.jpg" alt="Mass 1" width={500} height={350} style={{ borderRadius: 16 }} />
+    <Image src="/mass2.jpg" alt="Mass 2" width={500} height={350} style={{ borderRadius: 16 }} />
+    <Image src="/mass3.jpg" alt="Mass 3" width={500} height={350} style={{ borderRadius: 16 }} />
+  </div>
+</section>

@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabaseClient";
+import Image from "next/image";
+
 
 type Church = {
   id: string;
@@ -207,3 +209,19 @@ function formatTime(t: string) {
   const hour12 = ((hh + 11) % 12) + 1;
   return `${hour12}:${String(mm).padStart(2, "0")} ${ampm}`;
 }
+
+<section style={{ marginTop: 60 }}>
+  <h2 style={{ marginBottom: 20 }}>Sacrament of Reconciliation</h2>
+
+  <div
+    style={{
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+      gap: 20,
+    }}
+  >
+    <Image src="/conf1.jpg" alt="Confession 1" width={500} height={350} style={{ borderRadius: 16 }} />
+    <Image src="/conf2.jpg" alt="Confession 2" width={500} height={350} style={{ borderRadius: 16 }} />
+    <Image src="/conf3.jpg" alt="Confession 3" width={500} height={350} style={{ borderRadius: 16 }} />
+  </div>
+</section>
