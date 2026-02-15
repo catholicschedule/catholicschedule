@@ -220,8 +220,8 @@ function formatTime(t: string) {
       gap: 20,
     }}
   >
-    <Image src="/conf1.jpg" alt="Confession 1" width={500} height={350} style={{ borderRadius: 16 }} />
-    <Image src="/conf2.jpg" alt="Confession 2" width={500} height={350} style={{ borderRadius: 16 }} />
-    <Image src="/conf3.jpg" alt="Confession 3" width={500} height={350} style={{ borderRadius: 16 }} />
+    <Image src="/A-Catholic-Confession-saint-Michael-Patch.jpg" alt="A-Catholic-Confession-saint-Michael-Patch" width={500} height={350} style={{ borderRadius: 16 }} />
+    <Image src="/B-Catholic-Confession-Jesus.jpg" alt="B-Catholic-Confession-Jesus" width={500} height={350} style={{ borderRadius: 16 }} />
+    <Image src="/2-Mass-Roasary-beads" alt="2-Mass-Roasary-beads" width={500} height={350} style={{ borderRadius: 16 }} />
   </div>
 </section>

@@ -228,8 +228,8 @@ function formatTime(t: string) {
       gap: 20,
     }}
   >
-    <Image src="/mass1.jpg" alt="Mass 1" width={500} height={350} style={{ borderRadius: 16 }} />
-    <Image src="/mass2.jpg" alt="Mass 2" width={500} height={350} style={{ borderRadius: 16 }} />
-    <Image src="/mass3.jpg" alt="Mass 3" width={500} height={350} style={{ borderRadius: 16 }} />
+    <Image src="/1-Masss-cathedral.jpg" alt="1-Mass-cathedral" width={500} height={350} style={{ borderRadius: 16 }} />
+    <Image src="/2-Mass-Roasary-beads.jpg" alt="2-Mass-Roasary-beads" width={500} height={350} style={{ borderRadius: 16 }} />
+    <Image src="/B-Catholic-Confession-Jesus.jpg" alt="B-Catholic-Confession-Jesus" width={500} height={350} style={{ borderRadius: 16 }} />
   </div>
 </section>
