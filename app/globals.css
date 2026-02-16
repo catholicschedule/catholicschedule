@@ -11,13 +11,13 @@
 
 * { box-sizing: border-box; }
 
-html, body {
-  padding: 0;
-  margin: 0;
-  background: radial-gradient(1200px 600px at 10% 0%, #1a2b5f 0%, rgba(26,43,95,0) 60%),
-              radial-gradient(900px 500px at 90% 20%, #5f1a3c 0%, rgba(95,26,60,0) 55%),
-              var(--bg);
-  color: var(--text);
+body {
+  background: radial-gradient(1200px 800px at 20% 0%, #eef2ff 0%, transparent 60%),
+              radial-gradient(1200px 800px at 80% 20%, #fce7f3 0%, transparent 55%),
+              #f8fafc;
+  color: #0f172a;
+}
+
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
 }
 

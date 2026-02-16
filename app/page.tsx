@@ -153,47 +153,14 @@ export default function Home() {
 <div
   style={{
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-    gap: 20,
+    gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
+    gap: 24,
   }}
 >
-  {/* Cathedral (landscape) */}
-  <Image
-    src="/1-Mass-cathedral.jpg"
-    alt="Mass cathedral"
-    width={1500}
-    height={1000}
-    style={{ width: "100%", height: "auto", borderRadius: 16, display: "block" }}
-  />
-
-  {/* Rosary (landscape) */}
-  <Image
-    src="/2-Mass-Roasary-beads.jpg"
-    alt="Rosary beads"
-    width={1500}
-    height={1000}
-    style={{ width: "100%", height: "auto", borderRadius: 16, display: "block" }}
-  />
-
-{/* Saint Michael (portrait) */}
-<Image
-  src="/A-Catholic-Confession-saint-Michael-Patch.jpg"
-  alt="Saint Michael Protect Us"
-  width={1000}
-  height={1500}
-  style={{ width: "100%", height: "auto", borderRadius: 16, display: "block" }}
-/>
-
-
-{/* Jesus (portrait) */}
-<Image
-  src="/B-Catholic-Confession-Jesus.jpg"
-  alt="Jesus in Cathedral"
-  width={1000}
-  height={1500}
-  style={{ width: "100%", height: "auto", borderRadius: 16, display: "block" }}
-/>
-
+  <UniformTile src="/1-Mass-cathedral.jpg" alt="Mass cathedral" />
+  <UniformTile src="/2-Mass-Roasary-beads.jpg" alt="Rosary beads" />
+  <UniformTile src="/B-Catholic-Confession-Jesus.jpg" alt="Jesus" />
+</div>
 
 
     </main>
@@ -265,6 +232,37 @@ function formatTime(t: string) {
   const hour12 = ((hh + 11) % 12) + 1;
   return `${hour12}:${String(mm).padStart(2, "0")} ${ampm}`;
 }
+
+function UniformTile({ src, alt }: { src: string; alt: string }) {
+  return (
+    <div
+      style={{
+        height: 280,
+        borderRadius: 18,
+        overflow: "hidden",
+        border: "1px solid rgba(255,255,255,0.10)",
+        background: "rgba(0,0,0,0.25)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        width={1600}
+        height={900}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "contain", // ✅ uniform boxes, NO cutting off portrait images
+          display: "block",
+        }}
+      />
+    </div>
+  );
+}
+
 
 function LetterboxImage({ src, alt }: { src: string; alt: string }) {
   return (

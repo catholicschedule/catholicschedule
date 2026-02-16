@@ -145,30 +145,12 @@ export default function ConfessionPage() {
 <div
   style={{
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-    gap: 20,
-    marginTop: 20,
+    gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
+    gap: 24,
   }}
 >
-  <div style={{ borderRadius: 16, overflow: "hidden" }}>
-    <Image
-      src="/A-Catholic-Confession-saint-Michael-Patch.jpg"
-      alt="Saint Michael"
-      width={1200}
-      height={1600}   // (portrait ratio)
-      style={{ width: "100%", height: "auto", display: "block" }}
-    />
-  </div>
-
-  <div style={{ borderRadius: 16, overflow: "hidden" }}>
-    <Image
-      src="/B-Catholic-Confession-Jesus.jpg"
-      alt="Jesus"
-      width={1200}
-      height={800}    // (landscape ratio)
-      style={{ width: "100%", height: "auto", display: "block" }}
-    />
-  </div>
+  <UniformTile src="/A-Catholic-Confession-saint-Michael-Patch.jpg" alt="Saint Michael" />
+  <UniformTile src="/B-Catholic-Confession-Jesus.jpg" alt="Jesus" />
 </div>
 
 
@@ -244,3 +226,32 @@ function formatTime(t: string) {
   return `${hour12}:${String(mm).padStart(2, "0")} ${ampm}`;
 }
 
+function UniformTile({ src, alt }: { src: string; alt: string }) {
+  return (
+    <div
+      style={{
+        height: 280,
+        borderRadius: 18,
+        overflow: "hidden",
+        border: "1px solid rgba(255,255,255,0.10)",
+        background: "rgba(0,0,0,0.25)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        width={1600}
+        height={900}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "contain", // ✅ uniform boxes, NO cutting off portrait images
+          display: "block",
+        }}
+      />
+    </div>
+  );
+}
