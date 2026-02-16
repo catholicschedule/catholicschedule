@@ -12,6 +12,9 @@ type Church = {
   city: string;
   state: string;
   zip: string;
+  lat: number;
+  lng: number;
+  miles_away?: number;
 };
 
 const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -21,7 +24,7 @@ const ResultsMap = dynamic(() => import("../components/ResultsMap"), { ssr: fals
 export default function ConfessionPage() {
   const [zip, setZip] = useState("");
   const [radius, setRadius] = useState(25);
-  const [churches, setChurches] = useState<(Church & { miles_away?: number })[]>([]);
+  const [churches, setChurches] = useState<Church[]>([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [center, setCenter] = useState<{ lat: number; lng: number } | null>(null);
@@ -56,7 +59,7 @@ export default function ConfessionPage() {
       });
 
       if (error) throw new Error(error.message);
-      setChurches((data ?? []) as any);
+      setChurches((data ?? []) as Church[]);
     } catch (err: any) {
       setError(err.message ?? "Something went wrong.");
     } finally {
