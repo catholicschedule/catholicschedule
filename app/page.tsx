@@ -13,8 +13,8 @@ type Church = {
   state: string;
   zip: string;
   miles_away: number;
-lat: number;
-lng: number;
+  lat: number;
+  lng: number;
 };
 
 const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -28,7 +28,6 @@ export default function Home() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [center, setCenter] = useState<{ lat: number; lng: number } | null>(null);
-
 
   async function zipToLatLng(usZip: string) {
     const res = await fetch(`https://api.zippopotam.us/us/${encodeURIComponent(usZip)}`);
@@ -75,76 +74,94 @@ export default function Home() {
           <h1>Catholic Schedule</h1>
           <p>Find local Mass and Confession times</p>
         </div>
-<div className="navlinks">
-  <a href="/confession">Confession</a>
-</div>
 
+        <div className="navlinks">
+          <a href="/confession">Confession</a>
+        </div>
       </nav>
 
-      <section className="hero" style={{ position: "relative", overflow: "hidden" }}>
-  {/* subtle background image behind the hero */}
-  <div
-    style={{
-      position: "absolute",
-      inset: 0,
-      opacity: 0.14,
-      pointerEvents: "none",
-    }}
-  >
-    <Image
-      src="/1-Mass-cathedral.jpg"
-      alt="Background"
-      fill
-      style={{ objectFit: "cover" }}
-      priority
-    />
-    <div
-      style={{
-        position: "absolute",
-        inset: 0,
-        background:
-          "linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0.35), rgba(255,255,255,0.10))",
-      }}
-    />
-  </div>
+      {/* FOCUSED CENTER SECTION: Search + Map with side photos */}
+      <div
+        style={{
+          marginTop: 18,
+          display: "grid",
+          gridTemplateColumns: "320px minmax(740px, 1fr) 320px",
+          gap: 22,
+          alignItems: "start",
+        }}
+      >
+        {/* LEFT */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+          <SidePhoto src="/2-Mass-priest-host-left1.jpg" />
+          <SidePhoto src="/4-Mass-jesus-cross-left2.jpg" />
+        </div>
 
-        <h2>Search by ZIP code</h2>
-        <p>We’ll show nearby parishes and their schedules. Vigil Masses display first</p>
+        {/* CENTER */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <section className="hero" style={{ position: "relative", overflow: "hidden" }}>
+            {/* background image behind the hero */}
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                opacity: 0.14,
+                pointerEvents: "none",
+              }}
+            >
+              <Image src="/1-Mass-cathedral.jpg" alt="Background" fill style={{ objectFit: "cover" }} priority />
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  background:
+                    "linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0.35), rgba(255,255,255,0.10))",
+                }}
+              />
+            </div>
 
-        <form className="controls" onSubmit={onSearch}>
-          <input
-            className="input"
-            value={zip}
-            onChange={(e) => setZip(e.target.value)}
-            placeholder="ZIP (e.g., 15010)"
-            inputMode="numeric"
-            style={{ width: 220 }}
-          />
+            <h2 style={{ marginTop: 0 }}>Search by ZIP code</h2>
+            <p style={{ marginBottom: 0 }}>
+              We’ll show nearby parishes and their schedules. Vigil Masses display first
+            </p>
 
+            <form className="controls" onSubmit={onSearch}>
+              <input
+                className="input"
+                value={zip}
+                onChange={(e) => setZip(e.target.value)}
+                placeholder="ZIP (e.g., 15010)"
+                inputMode="numeric"
+                style={{ width: 280 }}
+              />
 
-          <select className="select" value={radius} onChange={(e) => setRadius(parseInt(e.target.value, 10))}>
-            <option value={5}>Within 5 miles</option>
-            <option value={10}>Within 10 miles</option>
-            <option value={25}>Within 25 miles</option>
-            <option value={50}>Within 50 miles</option>
-          </select>
+              <select className="select" value={radius} onChange={(e) => setRadius(parseInt(e.target.value, 10))}>
+                <option value={5}>Within 5 miles</option>
+                <option value={10}>Within 10 miles</option>
+                <option value={25}>Within 25 miles</option>
+                <option value={50}>Within 50 miles</option>
+              </select>
 
-          <button className="btn" type="submit" disabled={loading}>
-            {loading ? "Searching..." : "Search"}
-          </button>
-        </form>
+              <button className="btn" type="submit" disabled={loading}>
+                {loading ? "Searching..." : "Search"}
+              </button>
+            </form>
 
-        {error && <div className="error">{error}</div>}
-      </section>
+            {error && <div className="error">{error}</div>}
+          </section>
 
-<div style={{ marginTop: 16 }}>
-  <ResultsMap
-    center={center ?? { lat: 40.76622, lng: -80.35586 }} // default (St. Monica Catholic Parish) until you search
-    churches={churches}
-  />
-</div>
+          <div style={{ borderRadius: 22, overflow: "hidden" }}>
+            <ResultsMap center={center ?? { lat: 40.76622, lng: -80.35586 }} churches={churches} />
+          </div>
+        </div>
 
+        {/* RIGHT */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+          <SidePhoto src="/3-Mass-eucharist-right1.jpg" />
+          <SidePhoto src="/5-Mass-Rosary-beads-right2.jpg" />
+        </div>
+      </div>
 
+      {/* RESULTS LIST */}
       {churches.length > 0 && (
         <section className="grid">
           {churches.map((c) => (
@@ -177,7 +194,6 @@ export default function Home() {
           ))}
         </section>
       )}
-
     </main>
   );
 }
@@ -224,7 +240,7 @@ function MassTimes({ churchId }: { churchId: string }) {
         .filter((d) => grouped.has(d))
         .map((d) => (
           <div key={d} style={{ marginTop: 10 }}>
-            <div style={{ fontWeight: 700 }}>{dayNames[d]}</div>
+            <div style={{ fontWeight: 800 }}>{dayNames[d]}</div>
             <div className="pills" style={{ marginTop: 8 }}>
               {grouped.get(d)!.map((r, idx) => (
                 <span className="pill" key={idx}>
@@ -238,7 +254,6 @@ function MassTimes({ churchId }: { churchId: string }) {
   );
 }
 
-
 function formatTime(t: string) {
   const [hhS, mmS] = t.split(":");
   const hh = parseInt(hhS, 10);
@@ -248,73 +263,10 @@ function formatTime(t: string) {
   return `${hour12}:${String(mm).padStart(2, "0")} ${ampm}`;
 }
 
-function UniformTile({ src, alt }: { src: string; alt: string }) {
+function SidePhoto({ src }: { src: string }) {
   return (
-    <div
-      style={{
-        height: 280,
-        borderRadius: 18,
-        overflow: "hidden",
-        border: "1px solid rgba(255,255,255,0.10)",
-        background: "rgba(0,0,0,0.25)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <Image
-        src={src}
-        alt={alt}
-        width={1600}
-        height={900}
-        style={{
-          width: "100%",
-          height: "100%",
-          objectFit: "contain", // ✅ uniform boxes, NO cutting off portrait images
-          display: "block",
-        }}
-      />
-    </div>
-  );
-}
-
-
-function LetterboxImage({ src, alt }: { src: string; alt: string }) {
-  return (
-    <div
-      style={{
-        background: "rgba(255,255,255,0.06)",
-        border: "1px solid rgba(255,255,255,0.10)",
-        borderRadius: 16,
-        overflow: "hidden",
-        padding: 10,
-      }}
-    >
-      <div
-        style={{
-          width: "100%",
-          height: 200,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: "rgba(0,0,0,0.25)",
-          borderRadius: 12,
-          overflow: "hidden",
-        }}
-      >
-        <Image
-          src={src}
-          alt={alt}
-          width={1400}
-          height={1400}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "contain",
-            display: "block",
-          }}
-        />
-      </div>
+    <div style={{ position: "relative", height: 280, borderRadius: 22, overflow: "hidden" }}>
+      <Image src={src} alt="" fill style={{ objectFit: "cover" }} />
     </div>
   );
 }

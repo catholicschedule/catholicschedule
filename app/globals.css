@@ -2,31 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Basic page styling */
-:root {
-  color-scheme: dark;
-}
-
 html,
 body {
   padding: 0;
   margin: 0;
 }
 
+/* Warm Vatican-style background (NOT too light, NOT too dark) */
 body {
-  background: radial-gradient(1200px 600px at 20% 0%, rgba(80, 120, 255, 0.18), transparent 60%),
-    radial-gradient(900px 500px at 90% 10%, rgba(255, 60, 160, 0.14), transparent 55%),
-    linear-gradient(180deg, #070b14 0%, #050812 100%);
-  color: #e8eefc;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji",
-    "Segoe UI Emoji";
+  background:
+    radial-gradient(circle at top, rgba(255, 235, 190, 0.35), transparent 55%),
+    radial-gradient(circle at bottom, rgba(90, 70, 30, 0.22), transparent 60%),
+    linear-gradient(180deg, #c9b07b 0%, #bfa06c 25%, #9c8253 60%, #7b6240 100%);
+  color: #241a10;
+
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+    "Apple Color Emoji", "Segoe UI Emoji";
 }
 
-/* Reusable classes already referenced by your page */
+/* Layout */
 .container {
-  max-width: 1100px;
+  max-width: 1400px; /* gives room so side photos can sit OUTSIDE */
   margin: 0 auto;
-  padding: 24px;
+  padding: 26px;
+}
+
+/* Glass cards but WARM */
+.nav,
+.hero,
+.card {
+  background: rgba(255, 248, 235, 0.86);
+  border: 1px solid rgba(120, 90, 40, 0.25);
+  border-radius: 22px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(20, 10, 0, 0.18);
 }
 
 .nav {
@@ -34,37 +43,34 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 18px 18px;
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  backdrop-filter: blur(10px);
 }
 
 .brand h1 {
   margin: 0;
   font-size: 22px;
-  font-weight: 800;
+  font-weight: 900;
 }
 
 .brand p {
   margin: 4px 0 0 0;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 .navlinks a {
-  color: #e8eefc;
+  color: #2b2014;
   text-decoration: none;
   margin-left: 18px;
+  font-weight: 700;
   opacity: 0.9;
 }
 
+.navlinks a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
 .hero {
-  margin-top: 18px;
   padding: 22px 18px;
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  backdrop-filter: blur(10px);
 }
 
 .controls {
@@ -78,23 +84,24 @@ body {
 .input,
 .select {
   border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(0, 0, 0, 0.25);
-  color: #e8eefc;
+  border: 1px solid rgba(120, 90, 40, 0.25);
+  background: rgba(255, 255, 255, 0.75);
+  color: #241a10;
   padding: 10px 12px;
 }
 
 .btn {
   border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.10);
-  color: #e8eefc;
+  background: rgba(212, 175, 55, 0.22);
+  border: 1px solid rgba(120, 90, 40, 0.35);
+  color: #2b2014;
   padding: 10px 14px;
   cursor: pointer;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  font-weight: 800;
 }
 
 .btn:disabled {
@@ -118,10 +125,6 @@ body {
 
 .card {
   padding: 16px;
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  backdrop-filter: blur(10px);
 }
 
 .row {
@@ -134,7 +137,7 @@ body {
 .title {
   margin: 0;
   font-size: 18px;
-  font-weight: 800;
+  font-weight: 900;
 }
 
 .addr {
@@ -145,14 +148,15 @@ body {
 .badge {
   padding: 6px 10px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.10);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(212, 175, 55, 0.20);
+  border: 1px solid rgba(120, 90, 40, 0.25);
+  font-weight: 800;
 }
 
 .sectionTitle {
-  font-weight: 800;
+  font-weight: 900;
   margin-top: 6px;
-  opacity: 0.95;
+  opacity: 0.97;
 }
 
 .pills {
@@ -164,6 +168,6 @@ body {
 .pill {
   padding: 8px 10px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.10);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(120, 90, 40, 0.22);
 }

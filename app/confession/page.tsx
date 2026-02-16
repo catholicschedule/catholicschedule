@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabaseClient";
 import Image from "next/image";
-
+import dynamic from "next/dynamic";
 
 type Church = {
   id: string;
@@ -16,6 +16,7 @@ type Church = {
 
 const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const displayOrder = [6, 0, 1, 2, 3, 4, 5]; // Saturday first
+const ResultsMap = dynamic(() => import("../components/ResultsMap"), { ssr: false });
 
 export default function ConfessionPage() {
   const [zip, setZip] = useState("");
@@ -23,6 +24,7 @@ export default function ConfessionPage() {
   const [churches, setChurches] = useState<(Church & { miles_away?: number })[]>([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [center, setCenter] = useState<{ lat: number; lng: number } | null>(null);
 
   async function zipToLatLng(usZip: string) {
     const res = await fetch(`https://api.zippopotam.us/us/${encodeURIComponent(usZip)}`);
@@ -44,6 +46,7 @@ export default function ConfessionPage() {
       if (!/^\d{5}$/.test(cleaned)) throw new Error("Please enter a valid 5-digit ZIP code.");
 
       const { lat, lng } = await zipToLatLng(cleaned);
+      setCenter({ lat, lng });
 
       const { data, error } = await supabase.rpc("nearby_churches", {
         lat,
@@ -53,7 +56,6 @@ export default function ConfessionPage() {
       });
 
       if (error) throw new Error(error.message);
-      // nearby_churches returns church fields + miles_away
       setChurches((data ?? []) as any);
     } catch (err: any) {
       setError(err.message ?? "Something went wrong.");
@@ -64,17 +66,35 @@ export default function ConfessionPage() {
 
   return (
     <main className="container">
-      <nav className="nav">
-        <div className="brand">
-          <h1>Catholic Schedule</h1>
-          <p>Find local Mass and Confession times</p>
-        </div>
-        <div className="navlinks">
-          <a href="/">Mass</a>
-          <a href="/admin">Admin</a>
-        </div>
-      </nav>
+  <nav className="nav">
+    <div className="brand">
+      <h1>Catholic Schedule</h1>
+      <p>Find local Mass and Confession times</p>
+    </div>
+    <div className="navlinks">
+      <a href="/">Mass</a>
+      <a href="/admin">Admin</a>
+    </div>
+  </nav>
 
+  {/* SAME 3 COLUMN STRUCTURE AS MAIN PAGE */}
+  <div
+    style={{
+      marginTop: 24,
+      display: "grid",
+      gridTemplateColumns: "260px 1fr 260px",
+      gap: 24,
+      alignItems: "start",
+    }}
+  >
+    {/* LEFT PHOTOS */}
+    <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+      <SidePhoto src="/A-Catholic-Confession-next-left1.jpg" />
+      <SidePhoto src="/B-Catholic-Confession-priest-left2.jpg" />
+    </div>
+
+    {/* CENTER CONTENT */}
+    <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
       <section className="hero">
         <h2>Search by ZIP code</h2>
         <p>Find nearby confession times</p>
@@ -89,7 +109,11 @@ export default function ConfessionPage() {
             style={{ width: 220 }}
           />
 
-          <select className="select" value={radius} onChange={(e) => setRadius(parseInt(e.target.value, 10))}>
+          <select
+            className="select"
+            value={radius}
+            onChange={(e) => setRadius(parseInt(e.target.value, 10))}
+          >
             <option value={5}>Within 5 miles</option>
             <option value={10}>Within 10 miles</option>
             <option value={25}>Within 25 miles</option>
@@ -104,57 +128,21 @@ export default function ConfessionPage() {
         {error && <div className="error">{error}</div>}
       </section>
 
-      {churches.length > 0 && (
-        <section className="grid">
-          {churches.map((c) => (
-            <article key={c.id} className="card">
-              <div className="row">
-                <div>
-                  <h3 className="title">{c.name}</h3>
-                  <p className="addr">
-                    {c.address}, {c.city}, {c.state} {c.zip}
-                  </p>
-                </div>
+      <div style={{ borderRadius: 18, overflow: "hidden" }}>
+        <ResultsMap
+          center={center ?? { lat: 40.76622, lng: -80.35586 }}
+          churches={churches}
+        />
+      </div>
+    </div>
 
-                <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
-                  {typeof (c as any).miles_away === "number" && (
-                    <span className="badge">{(c as any).miles_away.toFixed(1)} mi</span>
-                  )}
-                  <a
-                    className="btn"
-                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                      `${c.address}, ${c.city}, ${c.state} ${c.zip}`
-                    )}`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Directions
-                  </a>
-                </div>
-              </div>
-
-              <ConfessionTimes churchId={c.id} />
-            </article>
-          ))}
-        </section>
-      )}
-
-<section style={{ marginTop: 60 }}>
-  <h2 style={{ marginBottom: 20 }}>Sacrament of Reconciliation</h2>
-
-<div
-  style={{
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
-    gap: 24,
-  }}
->
-  <UniformTile src="/A-Catholic-Confession-saint-Michael-Patch.jpg" alt="Saint Michael" />
-  <UniformTile src="/B-Catholic-Confession-Jesus.jpg" alt="Jesus" />
-</div>
-
-
-    </main>
+    {/* RIGHT PHOTOS */}
+    <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+      <SidePhoto src="/C-Catholic-Confession-Jesus-right1.jpg" />
+      <SidePhoto src="/D-Catholic-Confession-saint-Michael-Patch-right2.jpg" />
+    </div>
+  </div>
+</main>
   );
 }
 
@@ -185,7 +173,12 @@ function ConfessionTimes({ churchId }: { churchId: string }) {
   }, [churchId]);
 
   if (err) return <div className="error">Error loading confession times: {err}</div>;
-  if (rows.length === 0) return <p className="addr" style={{ marginTop: 10 }}>No confession times currently listed.Please contact the parish for current confession times.</p>;
+  if (rows.length === 0)
+    return (
+      <p className="addr" style={{ marginTop: 10 }}>
+        No confession times currently listed. Please contact the parish for current confession times.
+      </p>
+    );
 
   const grouped = new Map<number, typeof rows>();
   rows.forEach((r) => {
@@ -226,32 +219,23 @@ function formatTime(t: string) {
   return `${hour12}:${String(mm).padStart(2, "0")} ${ampm}`;
 }
 
-function UniformTile({ src, alt }: { src: string; alt: string }) {
+function SidePhoto({ src }: { src: string }) {
   return (
     <div
       style={{
-        height: 280,
+        position: "relative",
+        height: 260,
         borderRadius: 18,
         overflow: "hidden",
-        border: "1px solid rgba(255,255,255,0.10)",
-        background: "rgba(0,0,0,0.25)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
       }}
     >
       <Image
         src={src}
-        alt={alt}
-        width={1600}
-        height={900}
-        style={{
-          width: "100%",
-          height: "100%",
-          objectFit: "contain", // ✅ uniform boxes, NO cutting off portrait images
-          display: "block",
-        }}
+        alt=""
+        fill
+        style={{ objectFit: "cover" }}
       />
     </div>
   );
 }
+
