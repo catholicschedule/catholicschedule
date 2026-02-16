@@ -69,7 +69,7 @@ export default function Home() {
   }
 
   return (
-    <main className="container">
+    <main className="container" style={{ position: "relative" }}>
       <nav className="nav">
         <div className="brand">
           <h1>Catholic Schedule</h1>
@@ -95,6 +95,26 @@ export default function Home() {
             style={{ width: 220 }}
           />
 
+<div
+  style={{
+    position: "absolute",
+    inset: "0 0 auto 0",
+    height: 260,
+    overflow: "hidden",
+    borderRadius: 24,
+    opacity: 0.18,
+    pointerEvents: "none",
+  }}
+>
+  <Image
+    src="/1-Mass-cathedral.jpg"
+    alt="Background"
+    fill
+    style={{ objectFit: "cover" }}
+    priority
+  />
+</div>
+
           <select className="select" value={radius} onChange={(e) => setRadius(parseInt(e.target.value, 10))}>
             <option value={5}>Within 5 miles</option>
             <option value={10}>Within 10 miles</option>
@@ -110,11 +130,12 @@ export default function Home() {
         {error && <div className="error">{error}</div>}
       </section>
 
-      {center && churches.length > 0 && (
-        <div style={{ marginTop: 16 }}>
-          <ResultsMap center={center} churches={churches} />
-        </div>
-      )}
+<div style={{ marginTop: 16 }}>
+  <ResultsMap
+    center={center ?? { lat: 40.76622, lng: -80.35586 }} // default (St. Monica Catholic Parish) until you search
+    churches={churches}
+  />
+</div>
 
 
       {churches.length > 0 && (
