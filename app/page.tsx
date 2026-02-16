@@ -81,7 +81,33 @@ export default function Home() {
 
       </nav>
 
-      <section className="hero">
+      <section className="hero" style={{ position: "relative", overflow: "hidden" }}>
+  {/* subtle background image behind the hero */}
+  <div
+    style={{
+      position: "absolute",
+      inset: 0,
+      opacity: 0.14,
+      pointerEvents: "none",
+    }}
+  >
+    <Image
+      src="/1-Mass-cathedral.jpg"
+      alt="Background"
+      fill
+      style={{ objectFit: "cover" }}
+      priority
+    />
+    <div
+      style={{
+        position: "absolute",
+        inset: 0,
+        background:
+          "linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0.35), rgba(255,255,255,0.10))",
+      }}
+    />
+  </div>
+
         <h2>Search by ZIP code</h2>
         <p>We’ll show nearby parishes and their schedules. Vigil Masses display first</p>
 
@@ -95,25 +121,6 @@ export default function Home() {
             style={{ width: 220 }}
           />
 
-<div
-  style={{
-    position: "absolute",
-    inset: "0 0 auto 0",
-    height: 260,
-    overflow: "hidden",
-    borderRadius: 24,
-    opacity: 0.18,
-    pointerEvents: "none",
-  }}
->
-  <Image
-    src="/1-Mass-cathedral.jpg"
-    alt="Background"
-    fill
-    style={{ objectFit: "cover" }}
-    priority
-  />
-</div>
 
           <select className="select" value={radius} onChange={(e) => setRadius(parseInt(e.target.value, 10))}>
             <option value={5}>Within 5 miles</option>
@@ -170,19 +177,6 @@ export default function Home() {
           ))}
         </section>
       )}
-
-<div
-  style={{
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
-    gap: 24,
-  }}
->
-  <UniformTile src="/1-Mass-cathedral.jpg" alt="Mass cathedral" />
-  <UniformTile src="/2-Mass-Roasary-beads.jpg" alt="Rosary beads" />
-  <UniformTile src="/B-Catholic-Confession-Jesus.jpg" alt="Jesus" />
-</div>
-
 
     </main>
   );
